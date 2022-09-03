@@ -5,7 +5,7 @@
 			<div class="flex justify-center flex-col mt-5">
 				<div v-for="question in getQuestions" :key="question.id" @click="toggleAnswer" v-bind:id="question.elementId" class="flex items-center mb-3">
 					<button tabindex="0" class="h-7 w-7 border-2 border-solid border-black mr-5">
-						<img :class="{ invisible: !question.tickIsVisible }" src="../assets/icons/tick.svg" alt="" />
+						<img :class="{ invisible: !tickIsVisible }" src="../assets/icons/tick.svg" alt="" />
 					</button>
 					<p class="">{{ question.text }}</p>
 				</div>
@@ -38,15 +38,26 @@ export default {
 	},
 	methods: {
 		toggleAnswer(event) {
-			console.log(event.currentTarget.id);
 			const answerElementId = event.currentTarget.id;
-			const answerElementIdLastChar = answerElementId[answerElementId.length - 1];
-			console.log(answerElementId);
-			console.log(answerElementIdLastChar);
+			const answerElementIdLastChar = Number(answerElementId[answerElementId.length - 1]);
+			// const questions = this.$store.state.tickAllCorrect.questions;
+
+			console.log("answer el id is " + answerElementId);
+
+			// for (let i = 0; i < questions.length; i++) {
+			// 	const questionId = questions[i].id;
+			// 	if (questionId == answerElementIdLastChar) {
+			// 		console.log("the question id is" + questionId);
+			// 		console.log("the question id is here with " + questionId);
+			// 	}
+			// }
+			// this.$store.commit("TOGGLE_TICK_ALL_CORRECT_ANSWER", answerElementIdLastChar);
+			// console.log(this.$store.state.tickAllCorrect);
+			this.$store.commit("TOGGLE_TICK_ALL_CORRECT_ANSWER", answerElementIdLastChar);
 		},
+		lockTickAllCorrect() {},
 	},
 };
-// console.log(this.questions);
 </script>
 
 <style></style>

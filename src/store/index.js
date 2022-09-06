@@ -4,46 +4,46 @@ const store = createStore({
   state: {
     tickAllCorrect: {
         isLocked: false,
-        randomOrder: true,
-        questions: [
+        randomOrder: false,
+        statements: [
             {
                 id: 0,
-                elementId: "tickAllAnswer1",
+                elementId: "tickAllAnswer0",
                 text: "London is the capital city of England",
                 correctAnswer: true,
                 isSelected: false,
             },
             {
                 id: 1,
-                elementId: "tickAllAnswer2",
+                elementId: "tickAllAnswer1",
                 text: "Paris is the capital city of Spain",
                 correctAnswer: false,
                 isSelected: false,
             },
             {
                 id: 2,
-                elementId: "tickAllAnswer3",
+                elementId: "tickAllAnswer2",
                 text: "Paris is the capital city of France",
                 correctAnswer: true,
                 isSelected: false,
             },
             {
                 id: 3,
-                elementId: "tickAllAnswer4",
+                elementId: "tickAllAnswer3",
                 text: "Cardiff is the capital city of Wales",
                 correctAnswer: true,
                 isSelected: false,
             },
             {
                 id: 4,
-                elementId: "tickAllAnswer5",
+                elementId: "tickAllAnswer4",
                 text: "Stoke is the capital city of England",
                 correctAnswer: false,
                 isSelected: false,
             },
             {
                 id: 5,
-                elementId: "tickAllAnswer6",
+                elementId: "tickAllAnswer5",
                 text: "Madrid is the capital city of Spain",
                 correctAnswer: true,
                 isSelected: false,
@@ -52,21 +52,22 @@ const store = createStore({
     }
   },
   getters: {
-    selectedTickAllCorrectAnswers(state){
-        return state.tickAllCorrect.questions.filter(answer => answer.isSelected);
-    }
   },
   mutations: {
-    LOCK_TICK_ALL_CORRECT(state){
-        state.tickAllCorrect.isLocked = true;
-        console.log("tick all correct is locked is "+ state.tickAllCorrect.isLocked);
-    },
-    TOGGLE_TICK_ALL_CORRECT_ANSWER(state, answer){
-        console.log(typeof answer);
-        console.log(state.tickAllCorrect.questions);
-        console.log("toggling with "+answer);
-        state.tickAllCorrect.questions[answer].isSelected = !state.tickAllCorrect.questions[answer].isSelected;
-        console.log(state.tickAllCorrect.questions);
+        LOCK_TICK_ALL_CORRECT(state){
+          state.tickAllCorrect.isLocked = true;
+          console.log("tick all correct is locked is "+ state.tickAllCorrect.isLocked);
+        },
+        TOGGLE_TICK_ALL_CORRECT_STATEMENT(state, statement){
+        const statements = state.tickAllCorrect.statements;
+
+        for(let i = 0; i < statements.length; i++){
+            const statementID = statements[i].id;
+            if(statementID == statement){
+                statements[i].isSelected = !statements[i].isSelected;
+            }
+        }
+
     },
   },
   actions: {
